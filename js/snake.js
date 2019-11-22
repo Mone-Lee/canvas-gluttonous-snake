@@ -52,5 +52,5 @@ Snake.prototype.drawBlock = function(node) {
   cxt.arc(node.x, node.y, gridWidth, 0, 360 * Math.PI / 180, false);
   cxt.fillStyle = node.color;
   cxt.fill();
-  cxt.closePath();
+  // cxt.closePath();
 }
