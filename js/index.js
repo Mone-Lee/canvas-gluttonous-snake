@@ -5,6 +5,10 @@
 // 开始游戏
 let food_interval = null;
 function start() {
+  // 初始化蛇
+  let snake = new Snake();
+  snake.init();
+
   // 2秒产生一个食物
   food_interval = setInterval(() => {
     let x = parseInt(cnv.width / gridWidth * Math.random()) * gridWidth;

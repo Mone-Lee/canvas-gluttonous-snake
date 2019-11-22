@@ -10,7 +10,7 @@ var cnv = $$('canvas');
 var cxt = cnv.getContext('2d');
 
 // 食物半径
-var gridWidth = 20;
+var gridWidth = 12;
 
 //获取随机颜色值
 function getRandomColor(){
