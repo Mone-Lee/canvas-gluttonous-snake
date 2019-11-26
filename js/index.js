@@ -17,6 +17,22 @@ function start() {
     // window.requestAnimationFrame(frame);
   snake_loop = setInterval(() => {
     let head = Object.assign({}, snake.arr[0]);
+
+    // 检查蛇头是否碰到画布边界，碰到则游戏结束
+    let head_x = head.x * gridWidth;
+    let head_y = head.y * gridWidth;
+    if(head_x + gridWidth >= cnv.width || head_x - gridWidth <= 0 ||
+       head_y + gridWidth >= cnv.height || head_y - gridWidth <= 0) {
+      var restart = confirm("游戏结束，是否重新开始？");
+      clearInterval(snake_loop);
+      clearInterval(food_loop);
+      if(restart) {
+        window.location.reload();
+      }else {
+        return false;
+      }
+    }
+    
     let diff_x = mouse.x - head.x * 10;
     let diff_y = mouse.y - head.y * 10;
     let vx = 0;
@@ -63,7 +79,7 @@ function start() {
     }
 
     snake.drawSnake();
-  }, 150);
+  }, 100);
   // })();
 
   // 2秒产生一个食物
@@ -74,7 +90,7 @@ function start() {
     let food = new Food(x, y, gridWidth, color);
     food_arr.push(food);
     food.create();
-  }, 2000)
+  }, 8000)
 }
 
 start();
