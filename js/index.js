@@ -3,9 +3,11 @@
  */
 
 // 开始游戏
+let snake = null;
+let food_arr = [];
 function start() {
   // 初始化蛇
-  let snake = new Snake();
+  snake = new Snake();
   snake.init();
 
   var mouse = getMouse(cnv);
@@ -39,8 +41,29 @@ function start() {
     snake.arr.pop();
 
     snake.arr.unshift(newHead);
+
+    // 检查食物是否与蛇头相撞
+    let index = -1;
+    if(food_arr.length > 0) {
+      for(let i=0; i<food_arr.length; i++) {
+        if(food_arr[i].isCollide(snake.arr[0])) {
+          index = i;
+        }
+      }
+
+      if(index > -1) {
+        // 给蛇增加长度
+        let food_obj = food_arr.splice(index, 1);
+        snake.add(food_obj);
+
+        // 清除被吃食物圆
+        cxt.fillStyle = 'white';
+        cxt.fillRect(food_obj[0].x - gridWidth, food_obj[0].y - gridWidth, 2 * gridWidth, 2 * gridWidth);
+      }
+    }
+
     snake.drawSnake();
-  }, 100);
+  }, 150);
   // })();
 
   // 2秒产生一个食物
@@ -49,6 +72,7 @@ function start() {
     let y = parseInt(cnv.height / gridWidth * Math.random()) * gridWidth;
     let color = getRandomColor();
     let food = new Food(x, y, gridWidth, color);
+    food_arr.push(food);
     food.create();
   }, 2000)
 }

@@ -21,10 +21,11 @@ Food.prototype.create = function() {
 
 // 检查碰撞，使用外接圆判定法
 Food.prototype.isCollide = function(obj) {
-  let dx = this.x - obj.x;
-  let dy = this.y - obj.y;
-  let distance = Math.sqrt(dx * dx + dy * dy);
-  if(distance < this.r + obj.r) {
+  let dx = this.x - obj.x * gridWidth;
+  let dy = this.y - obj.y * gridWidth;
+  let distance = parseInt((Math.sqrt(dx * dx + dy * dy)));
+
+  if(distance <= 2 * gridWidth) {
     return true;
   }else {
     return false;
