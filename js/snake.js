@@ -4,10 +4,8 @@
 
 // 记录蛇头的坐标，运动方向, 长度
 function Snake(x, y, len) {
-  // this.x = x;
-  // this.y = y;
   this.len = len || 0;
-  this.dir = 'R'; // 初始化方向为向右
+  // this.dir = 'R'; // 初始化方向为向右
   this.arr = [];
 }
 
@@ -56,6 +54,8 @@ Snake.prototype.drawBlock = function(head, node) {
 
 // 画蛇
 Snake.prototype.drawSnake = function() {
+  console.log(this.len);
+  console.log(this.arr);
   for(let i=0; i<this.len; i++) {
     this.drawBlock(this.arr[0], this.arr[i]);
   }
@@ -64,12 +64,24 @@ Snake.prototype.drawSnake = function() {
 // 移动身体
 Snake.prototype.move = function(preNode) {
   // 遍历蛇身，下一个蛇身圆的坐标改为上一个蛇身圆的坐标
-  for(let i=1; i<this.len; i++) {
-    let oldNode = Object.assign({}, this.arr[i]);
+  for(let i=0; i<this.len-1; i++) {
+    // let oldNode = Object.assign({}, this.arr[i]);
 
-    this.arr[i].x = preNode.x;
-    this.arr[i].y = preNode.y;
+    // this.arr[i].x = preNode.x;
+    // this.arr[i].y = preNode.y;
 
-    preNode = oldNode;
+    // preNode = oldNode;
+
+    this.arr[i].color = this.arr[i+1].color
   }
+}
+
+// 清除蛇尾
+Snake.prototype.clearTail = function() {
+  let tail = this.arr[this.len - 1];
+  console.log(tail);
+  cxt.fillStyle = 'white';
+  // cxt.strokeStyle = 'black';
+  cxt.fillRect(tail.x * gridWidth - gridWidth, tail.y * gridWidth - gridWidth, 2 * gridWidth, 2 * gridWidth);
+  // cxt.strokeRect(tail.x * gridWidth - gridWidth, tail.y * gridWidth - gridWidth, 2 * gridWidth, 2 * gridWidth);
 }
