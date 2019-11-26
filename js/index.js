@@ -22,8 +22,23 @@ function start() {
     // console.log(mouse.x, head.x * 10);
     // console.log(mouse.x - head.x * 20 - 10);
     // console.log(mouse.y - head.x * 20 - 10);
-    let vx = mouse.x - head.x * 10 > 0 ? speed : -speed;
-    let vy = mouse.y - head.y * 10 > 0 ? speed : -speed;
+    let diff_x = mouse.x - head.x * 10;
+    let diff_y = mouse.y - head.y * 10;
+    let vx = 0;
+    let vy = 0;
+
+    // 蛇头与鼠标在同一水平线或同一垂直直线方向，则不偏移，允许两者偏差值在+-一个半径之内
+    // 垂直向下移动
+    if(Math.abs(diff_x) < gridWidth) {
+      vx = 0;
+      vy = diff_x > 0 ? speed : -speed;
+    }else if(Math.abs(diff_y) < gridWidth) {
+      vx = diff_x > 0 ? speed : -speed;
+      vy = 0;
+    }else {
+      vx = mouse.x - head.x * 10 > 0 ? speed : -speed;
+      vy = mouse.y - head.y * 10 > 0 ? speed : -speed;
+    }
 
     snake.arr[0] = {x: head.x + vx, y: head.y + vy, color: head.color};
     snake.move(head);

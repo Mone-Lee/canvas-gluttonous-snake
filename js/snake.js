@@ -13,8 +13,6 @@ function Snake(x, y, len) {
 
 // 初始化蛇，初始长度为3
 Snake.prototype.init = function() {
-  // console.log(parseInt(cnv.width / 20));
-  // console.log(parseInt(cnv.height / 20));
   for(let i=0; i<3; i++) {
     this.add();
     this.drawBlock(this.arr[0], this.arr[i]);
@@ -28,12 +26,9 @@ Snake.prototype.add = function(newNode) {
   if(this.len === 0) {
     x = parseInt(cnv.width / 20);
     y = parseInt(cnv.height / 20);
-    // x = 20;
-    // y = 10;
   }else if(this.len === 1) {
     x = parseInt(cnv.width / 20) - 1;
     y = parseInt(cnv.height / 20);
-    // y = 10;
   }else {
     let last = this.arr[this.len - 1];
     let plast = this.arr[this.len - 2];
